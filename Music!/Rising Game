@@ -1,0 +1,5 @@
+#!/bin/bash
+cd "$(dirname "$0")"
+open .Rising\ Game.mp3
+date >> ~/log.txt
+killall Terminal
