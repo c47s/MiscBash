@@ -4,10 +4,14 @@
 # envir variables
 
 
+# Ensure that HOME is correct
+export HOME="/Users/nathaniel"
 # My very own private bin
 export PATH="$PATH:$HOME/bin"
 # C0L0R1FY ls, part 1
 export LSCOLORS="GxfxcxdxBxegedabagacad"
+# Check for mail more often
+export MAILCHECK=10
 
 
 
@@ -16,25 +20,42 @@ export LSCOLORS="GxfxcxdxBxegedabagacad"
 # why do it urself?
 
 
+echo >> "$HOME/.intrusions.log"
+date +"Logged in to `tty` on %C%y-%m-%d at %H:%M:%S" >> "$HOME/.intrusions.log"
+echo >> "$HOME/.intrusions.log"
+
 # Require ` to be typed at start of session,
 # unless this was run from my .bashrc
 # If anything other than ` is typed,
 # send everything that is typed to a log.
 
-( nohup securer & ) < /dev/null &> /dev/null
-#securer &
-read -srn 1 char
-touch "$HOME/.securing" "$HOME/.started"
+securerID="$(uuidgen)"
+( nohup securer "$securerID" & ) < /dev/null &> /dev/null
+read -srn 1 -t 4 char
+touch "$HOME/.started$securerID"
 if [ "$char" != \` -a -t 0 ]; then
-	exec spy "$char"
+	exec spy "$char" "$securerID"
 fi
-touch "$HOME/.secured"
+touch "$HOME/.secured$securerID"
 
 # Display the current working directory
-echo "pwd: `pwd`"
+if [ "`pwd`" = '/Users/nathaniel' ]; then
+    echo "pwd: `pwd`"
+else
+    printf "pwd: \e[31m`pwd`\e[0m"
+    echo
+fi
 
 # Display the tty
-echo "Current tty: `tty`"
+echo "tty: `tty`"
+
+# Alert if SIP isn't enabled
+if [ "`csrutil status`" = 'System Integrity Protection status: enabled.' ]
+    then echo "sip: OK"
+else
+    printf "\e[31mSystem Integrity Protection is Disabled!\e[0m"
+    echo
+fi
 
 # Fortune Cookie
 echo
@@ -54,7 +75,7 @@ cscgy cscgy 2> /dev/null
 # Wifi toggle: wifi on, wifi off
 alias wifi="networksetup -setairportpower en0"
 # Typing just "sudo" behaves like su, but loads your .bash_profile and such
-alias sudo="sudo -s"
+alias sudo="sudo -Ei"
 # A quicker way to type exit
 alias q="exit"
 # 5h0w 0ff ur m4d h4ck1ng 5ki11z
@@ -75,8 +96,11 @@ alias dim='echo $(tput cols)x$(tput lines)'
 alias rm='rm -i'
 # Convert strings into elements
 alias elem='while echo -n "> "; read; do per $REPLY; done'
-# improve pip install
+# Improve pip install
 alias 'pipin'='sudo -H pip install --default-timeout=100'
+# Clean up broken pieces of disrupted securer logins.
+# Only run when no logins are in progress.
+alias 'rmsec'='rm ~/.started* ~/.secured* ~/.securing*'
 
 
 
@@ -208,6 +232,38 @@ function gup {
 	git commit -m "Initial Commit"
 	git remote add origin "$2"
 	git push -u origin master
+}
+
+# Runs liq repeatedly from the desktop, taking options after each run:
+# Hit enter to keep options the same
+# Input "-" and hit enter to clear options
+# Otherwise, input "-p", "-v", "-pv", "-vp", "-p -v", or "-v -p".
+function liqr {
+    while read input; do
+        if [ $input ]; then
+            if [ $input = "-" ]; then
+                opts="";
+            else
+                opts=$input;
+            fi;
+        fi;
+        clear;
+        /Users/nathaniel/Desktop/liq $opts;
+    done
+}
+
+# Looks through files specified in $2 for image IDs relating to the given MID class in $1, then downloads them to the folder "FromAWS"
+function openimg {
+    for line in $(
+        grep -h "$1" "$2"
+    ); do
+        if [ "$(printf "%.*f\n" "0" "$(bc <<< "$(echo "$line" | cut -d , -f 4) * 100 / 1")")" -gt 70 ]; then
+            id=$(echo "$line" | cut -d , -f 1)
+            aws s3 --no-sign-request cp s3://open-images-dataset/train/"$id".jpg FromAWS;
+            magick convert "FromAWS/${id}.jpg" -scale '64!x64!' "FromAWS/${id}.jpg"
+            
+        fi
+    done
 }
 
 
