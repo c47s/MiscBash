@@ -1,0 +1,19 @@
+#!/bin/bash
+
+tIFS=$IFS
+IFS='
+'
+
+for line in `/Users/nathaniel/hw -g`; do
+	IFS="/"
+	i=0
+	url="https://sharon.schoology.com"
+	for item in $line; do
+		if [ $i -gt 2 ]; then
+			url="$url/$item"
+		fi
+		i=$((i + 1))
+	done
+	open "$url"
+done
+IFS=$tIFS

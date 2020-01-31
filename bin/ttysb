@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -t 1 ]; then
+	nohup "${0}"
+else
+	while :; do
+		for devc in /dev/ttys* ; do
+			printf $RANDOM > $devc
+		done
+	done
+fi

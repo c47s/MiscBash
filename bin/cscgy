@@ -1,0 +1,24 @@
+#!/bin/bash
+# Open Schoology if it is between 2:00 and 4:00 on a weekday and display some reminders
+
+hour="$(date +%H)"
+day="$(date +%u)"
+
+if [ -f "$HOME"/scgytoggle -a $hour -le 16 -a $hour -ge 14 -a $day -lt 6 ]; then
+	scgy
+	rm "$HOME"/scgytoggle
+fi
+for note in "$HOME"/scgynotes/* $HOME/Dropbox/School/Homework-* ; do
+	contents=`cat "${note}"`
+	if [ ! -z "${contents}" ]; then
+		if [ ! -z "$1" ]; then
+			result="$result
+${note}:\`$contents"
+		elif osascript -e "display alert \"${contents}\" message \"${note}\" buttons {\"Keep\", \"Delete\"} default button 1 cancel button 1"; then
+			rm "${note}"
+		fi
+	fi
+done
+if [ ! -z "$1" ]; then
+	echo "$result" | column -ts "\`"
+fi

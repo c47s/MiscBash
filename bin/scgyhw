@@ -1,0 +1,14 @@
+#!/bin/bash
+
+tIFS=$IFS
+IFS='",
+'
+
+i=0
+for item in `/Users/nathaniel/bin/hw -g`; do
+	if [ $(((i - 1) % 4)) -eq 0 ]; then
+		echo "$item" > "$HOME/scgynotes/$item"
+	fi
+	i=$((i + 1))
+done
+IFS=$tIFS

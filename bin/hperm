@@ -1,0 +1,6 @@
+#!/bin/bash
+permstr="${1}"
+for (( i=0; i<${#permstr}; i++ )); do
+  permchar="${permstr:$i:1}"
+  #lots of if
+done

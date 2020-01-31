@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /Users/nathaniel/Dropbox/School/Archive/Science/Synopsises
+fileCount="$(ls -1q *.txt | wc -l)"
+if [ "${fileCount}" -eq 6 ]
+then
+	/Users/nathaniel/bin/synopcat
+fi

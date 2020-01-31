@@ -1,0 +1,8 @@
+#!/bin/bash
+osascript -e "tell application \"Firefox\"
+	activate
+	tell application \"System Events\"
+		keystroke \"l\" using command down
+		keystroke \"${1}\" ${2}
+	end tell
+end tell"

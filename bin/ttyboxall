@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for tty in /dev/tty*; do
+	if [ "$tty" != "`tty`" -a "$tty" != "/dev/tty" ]; then
+		{
+			ttybox "$tty" 2> /dev/null; echo "ttybox on $tty stopped."
+		} &
+	fi
+done

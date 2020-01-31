@@ -1,0 +1,11 @@
+#!/bin/bash
+count="${1}"
+incmt="${2}"
+if [ -z "${incmt}" ]; then incmt=1; fi
+while [ $count -gt 0 ]; do
+if [ -n "${3}" ]; then clear; fi
+echo $count
+sleep "${incmt}"
+let count=$count-"${incmt}"
+done
+printf "\a"

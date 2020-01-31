@@ -1,0 +1,4 @@
+#!/bin/bash
+open https://sharon.schoology.com/
+sleep 5
+osascript -e 'tell application "System Events" to key code 76'

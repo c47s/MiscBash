@@ -1,0 +1,17 @@
+#!/bin/bash
+
+osascript -e 'set volume output volume 100 without output muted'
+
+say "computer. computer. set volume to 10 everywhere" -v Alex -r 150
+
+sleep 3
+
+say "computer. computer. announce" -v Alex -r 150
+
+sleep 4
+
+say "$@" -v Alex -r 150
+
+sleep 30
+
+say "computer. computer. set volume to 3 everywhere" -v Alex -r 150

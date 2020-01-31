@@ -1,0 +1,34 @@
+#!/bin/zsh
+
+sleep 5
+
+if ! [ -f "$HOME/.started$1" ]; then
+  pkill -9 bash
+  osascript -e 'set volume output volume 100 without output muted'
+  say 'Securer Timed Out'
+else
+  rm "$HOME/.started$1"
+fi
+
+if [ -f "$HOME/.secured$1" ]; then
+  rm "$HOME/.secured$1"
+  exit
+fi
+
+while [ -f "$HOME/.securing$1" ]; do
+  rm "$HOME/.securing$1"
+  sleep 3
+done
+
+#osascript -e '
+#say \"Stop that!\"
+#repeat
+#set volume output volume 100
+#set volume alert volume 100 without output muted
+#beep
+#end repeat'
+/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+mail -s 'Securer Activated' nathaniel <<< '
+'
+osascript -e 'set volume output volume 100 without output muted'
+say 'Securer Activated'

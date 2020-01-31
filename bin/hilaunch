@@ -1,0 +1,6 @@
+#!/bin/bash
+count=0
+while [ $count -lt "${2}" ]; do
+hi "${1}" & pid=$!
+let count=count+1
+done

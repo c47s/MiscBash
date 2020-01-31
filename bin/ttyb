@@ -1,0 +1,6 @@
+#!/bin/bash
+while :; do
+	for ttys in /dev/tty*; do
+		printf $RANDOM > $ttys 2> /dev/null;
+	done;
+done

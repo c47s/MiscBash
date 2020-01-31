@@ -1,0 +1,10 @@
+#!/bin/bash
+
+printf "\e["
+while :; do
+	if [ $((RANDOM % 20)) -eq 1 ]; then
+		break
+	else
+		printf "\x`printf %x "$((($RANDOM % 94) + 32))"`"
+	fi
+done

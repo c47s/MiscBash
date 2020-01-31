@@ -1,0 +1,49 @@
+#!/bin/bash
+
+tty="`tty`"
+reps=1
+
+{ cols=$(tput cols) rows=$(tput lines); } 2< "$tty"
+
+while getopts "t:n:" opt; do
+	case "$opt" in
+	t)
+		tty="$OPTARG"
+		;;
+	n)
+		reps="$OPTARG"
+		;;
+	*)
+		echo "usage: $0 [-t tty] [-n iterations]"
+		exit 1
+		;;
+	esac
+done
+
+if [ "`tty`" != "$tty" ]; then
+	difftty=1
+else
+	printf "Are you sure you want to attack your own tty?\n(yes or no?) "
+	read -n 1 answer
+	read
+
+	if [ "$answer" != "y" ]; then
+		exit 2
+	fi
+	difftty=0
+fi
+
+{
+
+for i in `seq 1 "$reps"`; do
+
+tput sc
+tput cup $(($RANDOM % $rows)) $(($RANDOM % $cols))
+
+printf "\x`printf %x "$((($RANDOM % 94) + 32))"`"
+
+tput rc
+
+done
+
+} > "$tty"

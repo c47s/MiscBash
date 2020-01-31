@@ -1,0 +1,4 @@
+#!/bin/bash
+touch "${1}"
+open -R "${1}"
+open -t "${1}"

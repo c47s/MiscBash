@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cols=$(tput cols)
+lines=$(tput lines)
+
+echo -n "$(tput sc; tput cup $(($RANDOM % $lines)) $(($RANDOM % $cols))) $(tput rc)"

@@ -1,0 +1,11 @@
+#!/bin/bash
+(while read word; do
+    url=$(curl -s --output /dev/null --write-out "%{redirect_url}" "http://www.yellkey.com/$word")
+    if [ "$url" ]; then
+        echo "$url"
+        echo "$word" >> usedwords.txt
+        echo "$url" >> urls.txt
+    else
+        echo "$word" >> unusedwords.txt
+    fi
+done) < "$@"

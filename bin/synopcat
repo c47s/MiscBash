@@ -1,0 +1,9 @@
+#!/bin/bash
+cd ~/Dropbox/School/Archive/Science/Synopsises
+echo '' > ~/Dropbox/School/Archive/concatenated_synposises.txt
+for f in *.txt; do (echo "${f}"; echo ''; cat "${f}"; echo ''; echo ''; echo '') >> ~/Dropbox/School/Archive/concatenated_synposises.txt; mv "${f}" Old; done
+open ~/Dropbox/School/Archive/concatenated_synposises.txt
+sleep 0.2
+osascript -e 'tell application "System Events" to keystroke "p" using command down'
+sleep 0.2
+#killall Terminal

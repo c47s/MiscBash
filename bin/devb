@@ -1,0 +1,12 @@
+#!/bin/bash
+while :; do
+	sleep $1
+	for f in /dev/*; do
+		sleep $2
+		if printf $RANDOM > $f; then
+			echo Success: $f
+		else
+			echo Error:   $f
+		fi
+	done
+done

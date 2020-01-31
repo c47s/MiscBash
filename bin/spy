@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo -n "NMac:~ nathaniel$ $1"
+
+IFS=
+
+echo >> "$HOME/.intrusions.log"
+date +"* * * Intrusion on %C%y-%m-%d at %H:%M:%S * * *" >> "$HOME/.intrusions.log"
+echo >> "$HOME/.intrusions.log"
+
+echo -n "$1" >> "$HOME/.intrusions.log"
+
+while :; do
+  read -t 3 -rn 1 char || break
+  touch "$HOME/.securing$2"
+  if [ "$char" = "" ]; then
+    echo >> "$HOME/.intrusions.log"
+    echo -n "NMac:~ nathaniel$ "
+  else
+    echo -n "$char" >> "$HOME/.intrusions.log"
+  fi
+done

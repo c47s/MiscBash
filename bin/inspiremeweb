@@ -1,0 +1,2 @@
+#!/bin/bash
+expr match "`curl https://talaikis.com/api/quotes/random/`" '"quote":"(?s)(.*)","author"'

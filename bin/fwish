@@ -1,0 +1,5 @@
+#!/bin/bash
+echo
+/usr/local/bin/fortune
+echo
+wish

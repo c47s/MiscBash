@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -e "/Users/Nathaniel/TimeToggle/toggle.txt" ]; then
+	if [ `date +\%M` -eq "00" ]; then
+		date "+It's \%-I o' clock" | say -v bells;
+	else
+		date "+It's \%-I \%M" | say -v bells;
+	fi;
+fi

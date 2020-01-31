@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "" >> ~/desktop/binDump.txt; for file in ~/bin/* ; do printf "\n\n\n${file}\n" >> ~/desktop/binDump.txt; cat $file >> ~/desktop/binDump.txt; done; less ~/desktop/binDump.txt

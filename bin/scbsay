@@ -1,0 +1,4 @@
+#!/bin/bash
+for word in $@; do
+	tmpi say $word
+done
