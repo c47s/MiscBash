@@ -29,14 +29,14 @@ echo >> "$HOME/.intrusions.log"
 # If anything other than ` is typed,
 # send everything that is typed to a log.
 
-securerID="$(uuidgen)"
-( nohup securer "$securerID" & ) < /dev/null &> /dev/null
-read -srn 1 -t 4 char
-touch "$HOME/.started$securerID"
-if [ "$char" != \` -a -t 0 ]; then
-	exec spy "$char" "$securerID"
-fi
-touch "$HOME/.secured$securerID"
+#securerID="$(uuidgen)"
+#( nohup securer "$securerID" & ) < /dev/null &> /dev/null
+#read -srn 1 -t 4 char
+#touch "$HOME/.started$securerID"
+#if [ "$char" != \` -a -t 0 ]; then
+#	exec spy "$char" "$securerID"
+#fi
+#touch "$HOME/.secured$securerID"
 
 # Display the current working directory
 if [ "`pwd`" = '/Users/nathaniel' ]; then
@@ -75,7 +75,7 @@ cscgy cscgy 2> /dev/null
 # Wifi toggle: wifi on, wifi off
 alias wifi="networksetup -setairportpower en0"
 # Typing just "sudo" behaves like su, but loads your .bash_profile and such
-alias sudo="sudo -Ei"
+alias sudo="sudo -i"
 # A quicker way to type exit
 alias q="exit"
 # 5h0w 0ff ur m4d h4ck1ng 5ki11z
@@ -265,6 +265,13 @@ function openimg {
         fi
     done
 }
+
+# Sets the mac's volume using AppleScript
+# Volume ranges from 0 to 100
+volume () {
+    osascript -e "set volume output volume $@ without output muted" 
+}
+
 
 
 
