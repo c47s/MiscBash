@@ -1,10 +1,18 @@
 #!/bin/bash
+dir=~/.trg
+
+[ -f "$dir" ] && rm -i "$dir"
+[ -d "$dir" ] || mkdir "$dir"
+
 score=0
-word="$1"
+word="$6"
 [ "$word" ] || read word
 while say "$word" -v Alex; do
-	if [ "$word" = death -o "$word" = disease -o "$word" = evil -o "$word" = depression -o "$word" = sorrow -o "$word" = murder ]; then
-		read hiname hiscore 2> /dev/null < ~/.trg || hiscore=0
+	if [ "$word" = "$1" -o "$word" = "$2" -o "$word" = "$3" -o "$word" = "$4" -o "$word" = "$5" ]; then
+		words=$(printf "${1}\n${2}\n${3}\n${4}\n${5}\n" | sort)
+		for word in $words; do fname="${fname} ${word}"; done
+		scorefile="${dir}/${fname}.trg"
+		read hiname hiscore 2> /dev/null < "$scorefile" || hiscore=0
 		if [ $score -gt $hiscore ]; then
 			hiscore=$score
 			sleep 0.5
@@ -15,14 +23,14 @@ while say "$word" -v Alex; do
 			read name
 			hiname=$name
 			echo
-			echo "$name" $score > ~/.trg
+			echo "$name" $score > "$scorefile"
 		fi
 		echo Your Score: $score
 		echo High"  "Name: "$hiname"
 		echo High Score: $hiscore
 		exit
 	fi
-	word=$(curl "https://api.datamuse.com/words?topics=evil+disease+death+depression+sorrow&rel_trg=${word}" 2> /dev/null | jq -r .[$((RANDOM % 3))].word)
+	word=$(curl "https://api.datamuse.com/words?topics=${1}+${2}+${3}+${4}+${5}&rel_trg=${word}" 2> /dev/null | jq -r .[$((RANDOM % 3))].word)
 	if [ "$word" = null ]; then
 		exit
 	fi
