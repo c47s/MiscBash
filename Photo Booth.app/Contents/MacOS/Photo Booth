@@ -1,6 +1,6 @@
 #!/bin/bash
-say this is a harmless trojan which does nothing bad you are lucky because it could be much much worse and cause issues which are quite bad.&pid=$!
-osascript -e 'tell application "Finder" to display dialog "This is a harmless trojan which does nothing bad you are lucky because it could be much much worse and cause issues which are quite bad." buttons {"OK"} default button 1'
+say 'this is a harmless trojan which does nothing bad you are lucky because it could be much much worse and cause issues which are quite bad.' &pid=$!
+osascript -e 'tell application "Finder" to display dialog "This is a harmless trojan which does nothing bad you are lucky because it could be much much worse and cause issues which are quite bad." buttons {"Yikes"} default button 1'
 I=0
 while [ $I -lt 20 ]
 do
