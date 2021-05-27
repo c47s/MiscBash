@@ -101,6 +101,8 @@ alias 'pipin'='sudo -H pip install --default-timeout=100'
 # Clean up broken pieces of disrupted securer logins.
 # Only run when no logins are in progress.
 alias 'rmsec'='rm ~/.started* ~/.secured* ~/.securing*'
+# Haskell stack.
+alias 'stack'='stack --color always'
 
 
 
@@ -286,3 +288,39 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 # The original version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 export PATH
+
+
+
+
+# * * * * * * * * * *
+# >> DIRECTORY ZONE
+# dir-specific actions
+# mostly virtual envs
+
+case $(pwd) in
+        '/Users/nathaniel/Documents/GitHub/LIMS')
+# source bin/activate  # commented out by conda initialize
+esac
+
+
+
+
+# DO NOT WRITE BELOW THIS POINT
+# If bots append stuff, move it to the bot zone.
+# We can't have anything interfering with the DIRECTORY ZONE
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/nathaniel/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/nathaniel/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/nathaniel/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/nathaniel/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
